@@ -9,7 +9,7 @@ go								--go to bancho
 
 
 create table tb_clients (
-	id_client				int,
+	id_client				int			primary key		identity(1,1), --identity(int stating_point, int increment)
 	client_name				varchar,
 	client_address			varchar,
 	client_phone			int,
@@ -17,14 +17,14 @@ create table tb_clients (
 )
 
 create table tb_sell_listitems (
-	id_item					int,
+	id_item					int			primary key		identity(1,1),
 	item_desc				text,
 	item_price				float,
 	item_unitqtd			int,
 )
 
 create table tb_sell_checkouts (
-	id_checkout				int,
+	id_checkout				int			primary key		identity(1,1),
 	id_client				int,
 	checkout_date			date,
 	checkout_value_total	float,
@@ -33,7 +33,7 @@ create table tb_sell_checkouts (
 )
 
 create table tb_sell_checkouts_items (
-	id_checkout_item		int,
+	id_checkout_item		int			primary key		identity(1,1),
 	id_checkout				int,
 	id_item					int,
 	checkout_item_qtd		int,
