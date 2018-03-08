@@ -10,22 +10,22 @@ go								--go to bancho
 
 /* table creation */
 create table tb_clients (
-	id_client				int			primary key		identity(1,1), --identity(int stating_point, int increment)
-	client_name				varchar,
+	id_client				int			primary key		identity(0,1), --identity(int stating_point, int increment)
+	client_name				varchar(32),
 	client_address			varchar,
 	client_phone			int,
 	client_email			varchar,
 )
 
 create table tb_sell_listitems (
-	id_item					int			primary key		identity(1,1),
+	id_item					int			primary key		identity(0,1),
 	item_desc				text,
 	item_price				float,
 	item_unitqtd			int,
 )
 
 create table tb_sell_checkouts (
-	id_checkout				int			primary key		identity(1,1),
+	id_checkout				int			primary key		identity(0,1),
 	id_client				int,
 	checkout_date			date,
 	checkout_value_total	float,
@@ -34,7 +34,7 @@ create table tb_sell_checkouts (
 )
 
 create table tb_sell_checkouts_items (
-	id_checkout_item		int			primary key		identity(1,1),
+	id_checkout_item		int			primary key		identity(0,1),
 	id_checkout				int,
 	id_item					int,
 	checkout_item_qtd		int,
@@ -64,3 +64,15 @@ alter table tb_sell_checkouts_items
 		
 		foreign key	(id_item)
 		references	tb_sell_listitems(id_item)
+		
+
+/* insert values into a table :3 */
+insert into tb_clients(client_name)	--at client_name in tb_clients,
+	values('dummy')					--create "dummy"
+
+insert into tb_sell_checkouts(id_client) --at id_client in tb_sell_checkouts,
+	values(0)							 --create a sell registry refering to "dummy"
+	
+/* reading values from a table :3c */
+select * from tb_clients			--select everything (*) from tb_clients
+select * from tb_sell_checkouts
