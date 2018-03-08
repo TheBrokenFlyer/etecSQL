@@ -8,6 +8,7 @@ go								--go to bancho
 */
 
 
+/* table creation */
 create table tb_clients (
 	id_client				int			primary key		identity(1,1), --identity(int stating_point, int increment)
 	client_name				varchar,
@@ -40,3 +41,26 @@ create table tb_sell_checkouts_items (
 	checkout_item_value		float,
 )
 
+
+/* table rules creation */
+alter table tb_sell_checkouts			--alter in tb_sell_checkouts
+	
+	add constraint tbr_sync_client_id		--add a rule called "tbr_sync_client_id"
+											--where
+		foreign key	(id_client)				--the column "id_client"
+		references	tb_clients(id_client)	--refers to "id_client" in "tb_clients"
+
+
+alter table tb_sell_checkouts_items
+	
+	add constraint tbr_sync_id_checkout 
+		
+		foreign key	(id_checkout)
+		references	tb_sell_checkouts(id_checkout)
+
+alter table tb_sell_checkouts_items
+	
+	add constraint tbr_sync_id_item
+		
+		foreign key	(id_item)
+		references	tb_sell_listitems(id_item)
