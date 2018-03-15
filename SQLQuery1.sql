@@ -12,12 +12,12 @@ go								--go to bancho
 create table tb_clients (
 	id_client				int			primary key		identity(0,1), --identity(int stating_point, int increment)
 	client_name				varchar(32),
-	client_address			varchar,
+	client_address			varchar(127),
 	client_phone			int,
-	client_email			varchar,
+	client_email			varchar(32),
 )
 
-create table tb_sell_listitems (
+create table tb_listitems (
 	id_item					int			primary key		identity(0,1),
 	item_desc				text,
 	item_price				float,
@@ -63,7 +63,7 @@ alter table tb_sell_checkouts_items
 	add constraint tbr_sync_id_item
 		
 		foreign key	(id_item)
-		references	tb_sell_listitems(id_item)
+		references	tb_listitems(id_item)
 		
 
 /* insert values into a table :3 */
@@ -73,6 +73,32 @@ insert into tb_clients(client_name)	--at client_name in tb_clients,
 insert into tb_sell_checkouts(id_client) --at id_client in tb_sell_checkouts,
 	values(0)							 --create a sell registry refering to "dummy"
 	
+	
+	
+insert into tb_listitems(item_desc,item_price,item_unitqtd)	--at table(column0,column1,[...])
+	values('gpu',499.99,30000)								--values(c0-val,c1-val,[...])
+insert into tb_listitems(item_desc,item_price,item_unitqtd)
+	values('cpu',299.70,290)
+
+
+insert into tb_clients(client_name,client_address,client_phone,client_email)
+	values('informed dummy','somewhere else','727272','address0@host.com')	 
+insert into tb_clients(client_name,client_address,client_phone,client_email)
+	values('asdfa','some place','232323','address1@host.com')
+insert into tb_clients(client_name,client_address,client_phone,client_email)
+	values('haah','a house','898989','address2@host.com')
+	
+
+insert into tb_listitems(item_desc,item_price,item_unitqtd)
+	values('gpu',499.99,30000)
+insert into tb_listitems(item_desc,item_price,item_unitqtd)
+	values('cpu',299.70,290)
+
+insert into tb_sell_checkouts(checkout_date,checkout_value_paid,/**/checkout_value_total)
+	values(30/12/3311,12,12)
+	
+
 /* reading values from a table :3c */
 select * from tb_clients			--select everything (*) from tb_clients
+select * from tb_listitems
 select * from tb_sell_checkouts
