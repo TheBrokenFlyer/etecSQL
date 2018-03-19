@@ -1,4 +1,4 @@
-use master;						--disuse master
+use master						--disuse master
 drop database		bancho		--delete bancho
 create database		bancho		--recreate bancho*
 use					bancho		--use bancho
@@ -27,7 +27,7 @@ create table tb_listitems (
 create table tb_sell_checkouts (
 	id_checkout				int			primary key		identity(0,1),
 	id_client				int,
-	checkout_date			date,
+	checkout_date			int,
 	checkout_value_total	float,
 	checkout_value_discount	float,
 	checkout_value_paid		float,
@@ -95,7 +95,7 @@ insert into tb_listitems(item_desc,item_price,item_unitqtd)
 	values('cpu',299.70,290)
 
 insert into tb_sell_checkouts(checkout_date,checkout_value_paid,/**/checkout_value_total)
-	values(30/12/3311,12,12)
+	values(0,12,12)
 	
 
 /* reading values from a table :3c */
