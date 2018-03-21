@@ -89,13 +89,15 @@ insert into tb_clients(client_name,client_address,client_phone,client_email)
 	values('haah','a house','898989','address2@host.com')
 	
 
-insert into tb_listitems(item_desc,item_price,item_unitqtd)
-	values('gpu',499.99,30000)
-insert into tb_listitems(item_desc,item_price,item_unitqtd)
-	values('cpu',299.70,290)
+insert into tb_sell_checkouts_items(id_checkout,id_item,checkout_item_qtd,checkout_item_value)
+	values(0,0,3,1301)
+insert into tb_sell_checkouts_items(id_checkout,id_item,checkout_item_qtd,checkout_item_value)
+	values(0,1,5,564)
 
-insert into tb_sell_checkouts(checkout_date,checkout_value_paid,/**/checkout_value_total)
-	values(0,12,12)
+insert into tb_sell_checkouts(id_client,checkout_date,checkout_value_paid,/**/checkout_value_total)
+	values(1,0,12,12)
+insert into tb_sell_checkouts(id_client,checkout_date,checkout_value_paid,/**/checkout_value_total)
+	values(3,31,9999,9999)
 	
 
 /* reading values from a table :3c */
