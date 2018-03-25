@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+	<head>
+		<title>exemplo2</title>
+	</head>
+	
+	<body>
+		<table border="0" cellpadding="3" cellspacing="0" height="50">
+			<tr>
+				<td> height="30" bgcolor="#8cdaff">
+					<b>upload result</b>
+				</td>
+				
+				<td align="right" bgcolor="#8cdaff">
+					<!--prints the current date and time-->
+					<?=date("/d-m-Y H-i-s")?>&nbsp; 
+				</td>
+			</tr>
+		</table>
+		
+		<?php
+			
+			//defines the maximum file size (in bytes)
+			$fileMaxSize = 102400;
+			
+			//validates acceptable file formats
+			$fileType	 = array ("image/gif","image/pjpeg","image/x-png","image/bmp");
+			
+			//fetches the file information, assumming the name of the file as "FILE"
+			$FILEInfo	 = $_FILES['FILE'];
+			
+			if($FILEInfo['error'] != 0) { //if the file could not be validated,
+				
+				//starts paragraph, enables bold formatting,
+				echo '<p><b>Error uploading the file,<br>' /* 'br'eaks a line */
+				
+				switch($FILEInfo['error']) { //gathers the error code
+					
+					case UPLOAD_ERR_INI_SIZE:
+						echo 'the file exeeds the maximum file size.';
+						break;
+					
+					case UPLOAD_ERR_FORM_SIZE:
+						echo 'the file is too big.';
+						break;
+					/* TODO: apparently, there are two different
+					 *		 errors for the same case (file too big.
+					 *		 ask later. */
+					
+					case UPLOAD_ERR_PARTIAL:
+						echo 'the upload wasn\'t completed in time.';
+						break;
+						
+					case UPLOAD_ERR_NO_FILE:
+						echo 'there is no file.';
+						break;
+				}
+				
+				//ends formatting and paragraph.
+				echo '</b></p>'
+				
+				//if the file has no size or if there is no name,
+				if($FILEInfo['size'] == 0 OR $FILEInfo['tmp_name'] == NULL) {
+					echo '<p><b>No file was uploaded.</p></b>';
+					exit;
+				}
+				
+				if($FILEInfo['size'] > $fileMaxSize) {
+					echo '<p><b>The file is too big (maximum size is ' . $fileMaxSize . '</b></p>';
+					exit;
+				}
