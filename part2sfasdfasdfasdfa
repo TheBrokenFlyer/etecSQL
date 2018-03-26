@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+	<head>
+		<title>exemplo2</title>
+	</head>
+	
+	<body>
+		<table border="0" cellpadding="3" cellspacing="0" height="50">
+			<tr>
+				<td> height="30" bgcolor="#8cdaff">
+					<b>upload result</b>
+				</td>
+				
+				<td align="right" bgcolor="#8cdaff">
+					<?=date("/d-m-Y H-i-s")?>&nbsp;
+				</td>
+			</tr>
+		</table>
+		
+		<?php
+		
+			$maxSize	= 102400; //in bytes
+			$fileType	= array ("image/gif","image/pjpeg","image/x-png","image/bmp");
