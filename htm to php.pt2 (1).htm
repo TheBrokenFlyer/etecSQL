@@ -7,7 +7,7 @@
 	<body>
 		<table border="0" cellpadding="3" cellspacing="0" height="50">
 			<tr>
-				<td> height="30" bgcolor="#8cdaff">
+				<td> <height="30" bgcolor="#8cdaff">
 					<b>upload result</b>
 				</td>
 				
@@ -27,12 +27,12 @@
 			$fileType	 = array ("image/gif","image/pjpeg","image/x-png","image/bmp");
 			
 			//fetches the file information, assumming the name of the file as "FILE"
-			$FILEInfo	 = $_FILES['FILE'];
+			$FILEInfo	 = $_FILES['_file'];
 			
 			if($FILEInfo['error'] != 0) { //if the file could not be validated,
 				
 				//starts paragraph, enables bold formatting,
-				echo '<p><b>Error uploading the file,<br>' /* 'br'eaks a line */
+				echo '<p><b>Error uploading the file,<br>'; /* 'br'eaks a line */
 				
 				switch($FILEInfo['error']) { //gathers the error code
 					
@@ -57,15 +57,43 @@
 				}
 				
 				//ends formatting and paragraph.
-				echo '</b></p>'
+				echo '</b></p>';
+				exit;
+			}
+			//if the file has no size or if there is no name,
+			if($FILEInfo['size'] == 0 OR $FILEInfo['tmp_name'] == NULL) {
+				echo '<p><b>No file was uploaded.</p></b>';
+				exit;
+			}
+			
+			//if the file exeeds the maximum file size
+			if($FILEInfo['size'] > $fileMaxSize) {
+				echo '<p><b>The file is too big (maximum size is ' . $fileMaxSize . '.)</b></p>';
+				exit;
+			}
+			
+			//if the file is not compatible with any file formats
+			if(array_search($FILEInfo['type'],$fileType) === FALSE) {
+				echo '<p><b>This file format is not accepted. (' . $FILEInfo['type'] . ')<br/>' .
+				exit;
+			}
+			
+			//the file is sent to this folder as
+			$FILEDir = '.\\' . $FILEInfo['name']; //
+			
+			//if the file was moved succesfully,
+			if(move_uploaded_file($FILEInfo['tmp_name'],$FILEDir)) {
 				
-				//if the file has no size or if there is no name,
-				if($FILEInfo['size'] == 0 OR $FILEInfo['tmp_name'] == NULL) {
-					echo '<p><b>No file was uploaded.</p></b>';
-					exit;
-				}
-				
-				if($FILEInfo['size'] > $fileMaxSize) {
-					echo '<p><b>The file is too big (maximum size is ' . $fileMaxSize . '</b></p>';
-					exit;
-				}
+				//print end message :3
+				echo	'<p><font color="navy"><b>
+						File moved. Have a nice day >w<
+						</b></font></p>';
+				echo	'<img src=\'$FILEDir\' border="0">';
+			
+			} else {
+				echo '<p><b>an error occoured</b></p>';
+			}
+		
+		?>
+	</body>
+</html>
