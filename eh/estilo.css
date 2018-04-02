@@ -1,0 +1,21 @@
+body {
+	font-family: "Century Gothic";
+	background-color: #747474;
+	color: #ffffff;
+}
+
+input,select,textarea {
+	width: 200px;
+	height: 18px;
+}
+
+.ast {
+	color: #ff7474;
+	font-size: 12px;
+}
+
+.sub {
+	width: 64px;
+	height: 24px;
+	padding: 2px;
+}
