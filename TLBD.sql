@@ -79,6 +79,8 @@ insert into tb_listitems(item_desc,item_price,item_unitqtd)	--at table(column0,c
 	values('gpu',499.99,30000)								--values(c0-val,c1-val,[...])
 insert into tb_listitems(item_desc,item_price,item_unitqtd)
 	values('cpu',299.70,290)
+insert into tb_listitems(item_desc,item_price,item_unitqtd)
+	values('eee',600.90,2990)
 
 
 insert into tb_clients(client_name,client_address,client_phone,client_email)
@@ -101,6 +103,10 @@ insert into tb_sell_checkouts(id_client,checkout_date,checkout_value_paid,/**/ch
 	
 
 /* reading values from a table :3c */
-select * from tb_clients			--select everything (*) from tb_clients
-select * from tb_listitems
-select * from tb_sell_checkouts
+--select * from tb_clients			--select everything (*) from tb_clients
+--select * from tb_listitems
+--select * from tb_sell_checkouts
+
+--select client_name,client_phone from tb_clients --select client_name and client_phone, in this order to show
+--select client_name				from tb_clients order by id_client desc --order by ID in decrescent order
+select client_name from tb_clients where client_name like '%m%' --"like" looks for condicions. % works like * thus selecting everything
