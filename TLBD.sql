@@ -11,17 +11,17 @@ go								--go to bancho
 /* table creation */
 create table tb_clients (
 	id_client				int			primary key		identity(0,1), --identity(int stating_point, int increment)
-	client_name				varchar(32),
-	client_address			varchar(127),
-	client_phone			int,
-	client_email			varchar(32),
+	client_name				varchar(32)	 null,
+	client_address			varchar(127) null,
+	client_phone			int			 null,
+	client_email			varchar(32)	 null,
 )
 
 create table tb_listitems (
 	id_item					int			primary key		identity(0,1),
-	item_desc				text,
-	item_price				float,
-	item_unitqtd			int,
+	item_desc				text		 null,
+	item_price				float		 null,
+	item_unitqtd			int			 null,
 )
 
 create table tb_sell_checkouts (
@@ -108,6 +108,7 @@ select * from tb_listitems
 select * from tb_sell_checkouts
 
 select client_name,client_phone		from tb_clients									--select client_name and client_phone, in this order to show
-select client_name					from tb_clients order by id_client desc			--order by ID in decrescent order
-select *							from tb_clients where client_name like '%m%'	--"like" looks for condicions. % works like * thus selecting everything
-select *							from tb_clients where client_phone < 300000		--only registries where the number in client_phone is lower than 300000
+select client_name					from tb_clients order by	id_client desc			--order by ID in decrescent order
+select *							from tb_clients where		client_name like '%m%'		--"like" looks for condicions. % works like * thus selecting everything
+select *							from tb_clients where		client_phone < 300000		--only registries where the number in client_phone is lower than 300000
+
