@@ -100,8 +100,8 @@ insert into tb_sell_checkouts(id_client,checkout_date,checkout_value_paid,/**/ch
 	values(1,0,12,12)
 insert into tb_sell_checkouts(id_client,checkout_date,checkout_value_paid,/**/checkout_value_total)
 	values(3,31,9999,9999)
-	
-/*
+
+
 /* reading values from a table :3c */
 select * from tb_clients			--select everything (*) from tb_clients
 select * from tb_listitems
@@ -112,8 +112,9 @@ select client_name,client_phone		from tb_clients									--select client_name an
 select client_name					from tb_clients order by	id_client desc			--order by ID in decrescent order
 select *							from tb_clients where		client_name like '%m%'		--"like" looks for condicions. % works like * thus selecting everything
 select *							from tb_clients where		client_phone < 300000		--only registries where the number in client_phone is lower than 300000
-*/
 
+
+/* join examples */
 select * 
 	from	tb_clients			as C
 	join	tb_sell_checkouts	as V
