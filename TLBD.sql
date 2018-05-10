@@ -12,14 +12,14 @@ go								--go to bancho
 create table tb_clients (
 	id_client				int			primary key		identity(0,1), --identity(int stating_point, int increment)
 	client_name				varchar(32)	 null,
-	client_address			varchar(127) null,
+	client_address			varchar(128) null,
 	client_phone			int			 null,
 	client_email			varchar(32)	 null,
 )
 
 create table tb_listitems (
 	id_item					int			primary key		identity(0,1),
-	item_desc				text		 null,
+	item_desc				varchar(128) null,
 	item_price				float		 null,
 	item_unitqtd			int			 null,
 )
@@ -75,53 +75,61 @@ insert into tb_sell_checkouts(id_client) --at id_client in tb_sell_checkouts,
 	
 	
 	
-insert into tb_listitems(item_desc,item_price,item_unitqtd)	--at table(column0,column1,[...])
-	values('gpu',499.99,30000)								--values(c0-val,c1-val,[...])
-insert into tb_listitems(item_desc,item_price,item_unitqtd)
-	values('cpu',299.70,290)
-insert into tb_listitems(item_desc,item_price,item_unitqtd)
-	values('eee',600.90,2990)
+insert into tb_listitems(item_desc,item_price,item_unitqtd) values	--at table(column0,column1,[...])
+	('gpu',499.99,30000),								--values(c0-val,c1-val,[...])
+	('cpu',299.70,290),
+	('eee',600.90,2990);
 
 
-insert into tb_clients(client_name,client_address,client_phone,client_email)
-	values('informed dummy','somewhere else','727272','address0@host.com')	 
-insert into tb_clients(client_name,client_address,client_phone,client_email)
-	values('asdfa','some place','232323','address1@host.com')
-insert into tb_clients(client_name,client_address,client_phone,client_email)
-	values('haah','a house','898989','address2@host.com')
+insert into tb_clients(client_name,client_address,client_phone,client_email) values
+	('informed dummy','somewhere else','727272','address0@host.com'),
+	('asdfa','some place','232323','address1@host.com'),
+	('haah','a house','898989','address2@host.com');
 	
 
-insert into tb_sell_checkouts_items(id_checkout,id_item,checkout_item_qtd,checkout_item_value)
-	values(0,0,3,1301)
-insert into tb_sell_checkouts_items(id_checkout,id_item,checkout_item_qtd,checkout_item_value)
-	values(0,1,5,564)
+insert into tb_sell_checkouts_items(id_checkout,id_item,checkout_item_qtd,checkout_item_value) values
+	(0,0,3,1301),
+	(0,1,5,564);
 
-insert into tb_sell_checkouts(id_client,checkout_date,checkout_value_paid,/**/checkout_value_total)
-	values(1,0,12,12)
-insert into tb_sell_checkouts(id_client,checkout_date,checkout_value_paid,/**/checkout_value_total)
-	values(3,31,9999,9999)
+insert into tb_sell_checkouts(id_client,checkout_date,checkout_value_paid,/**/checkout_value_total) values
+	(1,0,12,12),
+	(3,31,9999,9999);
 
+
+update tb_listitems	--update data at "tb_listitems"
+	set		item_desc = 'mouse'	--sets the column of the registry to "'mouse'"
+	where	item_desc = 'eee';	--it affects any registry in the table with these conditions - if the current description is "'eee'"
+	
+delete from tb_clients --deletes any registries from "tb_clients"
+	where	client_email = NULL;	--which has no email (or no value in client_email)
 
 /* reading values from a table :3c */
-select * from tb_clients			--select everything (*) from tb_clients
+select * from tb_clients			--select everything (*) from tb_clients to show
 select * from tb_listitems
 select * from tb_sell_checkouts
 
 
-select client_name,client_phone		from tb_clients									--select client_name and client_phone, in this order to show
-select client_name					from tb_clients order by	id_client desc			--order by ID in decrescent order
-select *							from tb_clients where		client_name like '%m%'		--"like" looks for condicions. % works like * thus selecting everything
-select *							from tb_clients where		client_phone < 300000		--only registries where the number in client_phone is lower than 300000
+select client_name,client_phone
+	from tb_clients									--select client_name and client_phone, in this order to show
+select client_name
+	from		tb_clients
+	order by	id_client	desc			--order by ID in decrescent order
+select *
+	from	tb_clients
+	where	client_name like '%m%'		--"like" looks for condicions. % works like * thus selecting everything
+select *
+	from	tb_clients
+	where	client_phone < 300000		--only registries where the number in client_phone is lower than 300000
 
 
 /* join examples */
 select * 
-	from	tb_clients			as C
-	join	tb_sell_checkouts	as V
+	from		tb_clients			as C
+	inner join	tb_sell_checkouts	as V
 			on	C.id_client = id_checkout
 
-select C.client_name, C.client_address, S.checkout_date, S.checkout_value_paid
-	from	tb_clients			as C
-	join	tb_sell_checkouts	as S
-			on C.id_client = S.id_checkout				
+select C.client_name, C.client_address, S.checkout_date, S.checkout_value_paid --show these columns
+	from		tb_clients			as C	--from these tables as "C" and "S" as its aliases
+	inner join	tb_sell_checkouts	as S	--inner join means joining the common between both tables
+			on C.id_client = S.id_checkout		--that meets these conditions
 
