@@ -1,0 +1,17 @@
+INSERT	INTO	tb_clients(client_name, client_birthday, client_doc, client_address, client_phone)	VALUES
+	('dummyClient00',	'1999-01-01',	'000000000',	'somewhere,	00',	'11900000000'),
+	('dummyClient01',	'1999-01-01',	'000000001',	'somewhere,	01',	'11900000001'),
+	('dummyClient02',	'1999-01-01',	'000000002',	'somewhere,	02',	'11900000002'),
+	('dummyClient03',	'1999-01-01',	'000000003',	'somewhere,	03',	'11900000003'),
+	('dummyClient04',	'1999-01-01',	'000000004',	'somewhere,	04',	'11900000004'),
+	('dummyClient05',	'1999-01-01',	'000000005',	'somewhere,	05',	'11900000005'),
+	('dummyClient06',	'1999-01-01',	'000000006',	'somewhere,	06',	'11900000006'),
+	('dummyClient07',	'1999-01-01',	'000000007',	'somewhere,	07',	'11900000007'),
+	('dummyClient08',	'1999-01-01',	'000000008',	'somewhere,	08',	'11900000008'),
+	('dummyClient09',	'1999-01-01',	'000000009',	'somewhere,	09',	'11900000009'),
+	('dummyClient10',	'1999-01-01',	'000000010',	'somewhere,	10',	'11900000010'),
+	('dummyClient11',	'1999-01-01',	'000000011',	'somewhere,	11',	'11900000011'),
+	('dummyClient12',	'1999-01-01',	'000000012',	'somewhere,	12',	'11900000012'),
+	('dummyClient13',	'1999-01-01',	'000000013',	'somewhere,	13',	'11900000013'),
+	('dummyClient14',	'1999-01-01',	'000000014',	'somewhere,	14',	'11900000014'),
+	('dummyClient15',	'1999-01-01',	'000000015',	'somewhere,	15',	'11900000015');
