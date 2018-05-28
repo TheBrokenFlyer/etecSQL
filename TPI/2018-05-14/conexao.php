@@ -3,8 +3,8 @@ class BancodeDados {
     // Nas linhas abaixo você poderá colocar as informações do Banco de Dados.
     private $host = "localhost"; 	// Nome ou IP do Servidor
     private $user = "root"; 		// Usuário do Servidor MySQL
-    private $senha = ""; 		// Senha do Usuário MySQL
-    private $banco = "dt_sql"; 		// Nome do seu Banco de Dados
+    private $senha = ""; 			// Senha do Usuário MySQL
+    private $banco = "dtb_sql"; 	// Nome do seu Banco de Dados
     public $con;
 	
 	// método responsável para conexão a base de dados

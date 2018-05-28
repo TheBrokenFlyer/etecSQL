@@ -1,9 +1,9 @@
-﻿<!DOCTYPE>	<!--	SALVAR COMO consultar.php	-->
-<html>
+﻿<!DOCTYPE>
 	<head>
 		<title>PHP	com	mysql</title>
 		<meta	http-equiv="Content-Type"content="text/html;charset=utf-8"/>
 	</head>
+	
 	<body>
 		<h3>Exibição da consulta de um item especifico</h3>
 		<?php
@@ -40,5 +40,4 @@
 		<input	type="number"									value="<?php	echo $dados['client_phone'];	?>"	readonly /><br/>
 		
 		<input	type="button"	onclick="window.location='consulta.php';"	value="Voltar"/>	
-	</body>		
-</html>
+	</body>
