@@ -65,10 +65,10 @@ INSERT INTO DISCIPLINA VALUES
 	('EPB',	'ESTUDO DE PROBLEMAS BRASILEIROS',		45);
 	
 INSERT INTO HISTORICO VALUES
-	(1099,	'EPB',	2012,1, 40.5,	40),
-	(1100,	'EPB',	2012,1, 63.2,	40),
-	(1101,	'EPB',	2012,1, 80,		45),
-	(1102,	'EPB',	2012,1, 60,		23),
+	(1099,	'EPB',	2012,	1,		40.5,	40),
+	(1100,	'EPB',	2012,	1,		63.2,	40),
+	(1101,	'EPB',	2012,	1,		80,		45),
+	(1102,	'EPB',	2012,	1,		60,		23),
 	(1103,	'EPB',	2012,	2,		90,		41),
 	(1104,	'EPB',	2012,	2,		66.5,	44),
 	(1105,	'EPB',	2012,	2,		69.3,	18),
@@ -108,3 +108,9 @@ select alu.MATRICULA, alu.NOME, dis.NOME_DISCIPLINA, his.NOTA, his.FREQUENCIA
 /*[3.5]
 	Exiba todas as alunas que cursaram pelo menos uma disciplina,
 e suas respectivas matriculas. Ordene pelo nome das alunas */
+select alu.*
+	from	HISTORICO	as	his,
+			ALUNO		as	alu
+	where	alu.SEXO = 'F'
+	and		alu.MATRICULA = his.MATRICULA
+	order by alu.NOME;
