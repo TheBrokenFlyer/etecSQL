@@ -20,7 +20,7 @@ create table tbTarefa(
 	tarefaPrazo date NOT NULL,
 	tarefaPrazoInicio date,
 	tarefaPrazoTermino date,
-	idMetodo int,
+	idMetodo int NOT NULL,
 	
 	primary key (idTarefa),
 	foreign key (idMetodo) references tbMetodologias(idMetodo),
@@ -46,43 +46,74 @@ create table tbRef_TarefaPessoa (
 --
 --VALORES
 --
-insert into tbTarefa(tarefaTitulo,tarefaDesc,tarefaPrazo) values
-	('Tarefa sobre ''tal''', 'Esta tarefa se refere a ''tal'' coisa pra ser feita assim.', '2018-08-07'),
-	('Esta outra coisa', 'Isso aqui é isso.', '2018-03-31');
-
-insert into tbPessoa(pessoaNome, pessoaEmail) values
-	('Frisk', 'person@somewhere'),
-	('Fool', 'aaa@at'),
-	('Bar', 'noOne@nowhere');
-
-insert into tbRef_TarefaPessoa(idTarefa,idPessoa) values
-	(0,0),
-	(1,1),
-	(1,2);
-
 insert into tbMetodologias(metodoNome) values
 	('comodoro'),
 	('scram'),
 	('someOtherMethod'),
 	('idkWhatAreThose'),
 	('eeeeeeee');
+	
+insert into tbTarefa(tarefaTitulo,tarefaDesc,tarefaPrazo,tarefaPrazoInicio,tarefaPrazoTermino,idMetodo) values
+	('Tarefa sobre ''tal''',
+	'Esta tarefa se refere a ''tal'' coisa pra ser feita assim.',
+	'2018-08-07',
+	'2018-07-01',
+	'2018-09-16',
+	2),
+	('Esta outra coisa',
+	'Isso aqui é isso.',
+	'2018-03-31',
+	'2018-06-21',
+	'2018-08-16',
+	2),
+	('Tar tarefa',
+	'É sobre aaaaaaa',
+	'2018-08-13',
+	'2013-01-16',
+	'2018-10-03',
+	3);
+
+insert into tbPessoa(pessoaNome, pessoaEmail) values
+	('Frisk', 'person@somewhere'),
+	('Fool', 'aaa@at'),
+	('Bar', 'noOne@nowhere'),
+	('Someone else', 'hii@hello');
+
+insert into tbRef_TarefaPessoa(idTarefa,idPessoa) values
+	(0,0),
+	(1,1),
+	(1,2),
+	(1,0);
 
 --
 --SELEÇÕES
 --
-select
-	t.tarefaTitulo as [Título],
-	t.tarefaDesc as [Descrição],
-	t.tarefaPrazo as [Prazo]
-	from tbTarefa as t;
-	
-select
-	p.pessoaNome as [Nome],
-	p.pessoaEmail as [Email]
-	from tbPessoa as p;
-	
-select * from tbRef_TarefaPessoa;
 
+
+--1
 select
-	m.metodoNome as [Métodos]
-	from tbMetodologias as m;
+	p.pessoaNome  as [Nome],
+	p.pessoaEmail as [Email]
+	from	 	tbPessoa			as p
+	inner join	tbRef_TarefaPessoa	as r
+	on (p.idPessoa <> r.idPessoa)
+	order by p.idPessoa;
+
+--2
+select
+	m.metodoNome
+	from tbTarefa as t
+	inner join tbMetodologias as m
+	on (t.idMetodo = m.idMetodo)
+	group by t.idMetodo;
+
+--3
+select
+	p.pessoaNome
+	from tbPessoa as p
+	inner join tbTarefa as t
+	inner join tbRef_TarefaPessoa as r
+	on (t.idTarefa = r.idTarefa)
+	and (r.idPessoa = p.idPessoa)
+	and (t.tarefaPrazo > GETDATE())
+	
