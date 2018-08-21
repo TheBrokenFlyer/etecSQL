@@ -1,7 +1,10 @@
 use master;
-drop database dtbSql;
-create database dtbSql;
-use dtbSql;
+go
+ drop database dtbSql;
+go
+ create database dtbSql;
+go
+ use dtbSql;
 
 --
 --TABELAS
@@ -68,7 +71,7 @@ insert into tbTarefa(tarefaTitulo,tarefaDesc,tarefaPrazo,tarefaPrazoInicio,taref
 	2),
 	('Tar tarefa',
 	'É sobre aaaaaaa',
-	'2018-08-13',
+	'2018-02-13',
 	'2013-01-16',
 	'2018-10-03',
 	3);
@@ -90,30 +93,30 @@ insert into tbRef_TarefaPessoa(idTarefa,idPessoa) values
 --
 
 
---1
+--1. pessoas que não participam de nenhuma tarefa
 select
 	p.pessoaNome  as [Nome],
 	p.pessoaEmail as [Email]
 	from	 	tbPessoa			as p
-	inner join	tbRef_TarefaPessoa	as r
+	left join	tbRef_TarefaPessoa	as r
 	on (p.idPessoa <> r.idPessoa)
 	order by p.idPessoa;
 
---2
-select
-	m.metodoNome
+--2. metodologias mais usadas
+select COUNT(m.metodoNome) as [contagem], m.metodoNome as [nome]
 	from tbTarefa as t
-	inner join tbMetodologias as m
+	right join tbMetodologias as m
 	on (t.idMetodo = m.idMetodo)
-	group by t.idMetodo;
+	group by m.metodoNome
+	order by COUNT(m.metodoNome) desc;
 
---3
+--3. pessoas com tarefas atrasadas
 select
-	p.pessoaNome
+	p.pessoaNome as [nome], t.tarefaTitulo as [tarefa], t.tarefaPrazo as [prazo], t.tarefaPrazoTermino as [término]
 	from tbPessoa as p
-	inner join tbTarefa as t
-	inner join tbRef_TarefaPessoa as r
-	on (t.idTarefa = r.idTarefa)
-	and (r.idPessoa = p.idPessoa)
-	and (t.tarefaPrazo > GETDATE())
-	
+	join tbRef_TarefaPessoa as r
+	on (p.idPessoa = r.idPessoa)
+	join tbTarefa as t
+	on (r.idTarefa = t.idTarefa)
+	where (t.tarefaPrazo > GETDATE())
+	or (t.tarefaPrazoTermino > t.tarefaPrazo)
