@@ -61,7 +61,7 @@ insert into tbTarefa(tarefaTitulo,tarefaDesc,tarefaPrazo,tarefaPrazoInicio,taref
 	'Esta tarefa se refere a ''tal'' coisa pra ser feita assim.',
 	'2018-08-07',
 	'2018-07-01',
-	'2018-09-16',
+	null,
 	2),
 	('Esta outra coisa',
 	'Isso aqui é isso.',
@@ -118,5 +118,5 @@ select
 	on (p.idPessoa = r.idPessoa)
 	join tbTarefa as t
 	on (r.idTarefa = t.idTarefa)
-	where (t.tarefaPrazo > GETDATE())
-	or (t.tarefaPrazoTermino > t.tarefaPrazo)
+	where ((t.tarefaPrazo > GETDATE()) or (t.tarefaPrazoTermino > t.tarefaPrazo))
+	or ((t.tarefaPrazo > GETDATE()) AND (t.tarefaPrazoTermino = null));
