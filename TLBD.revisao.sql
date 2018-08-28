@@ -80,7 +80,8 @@ insert into tbPessoa(pessoaNome, pessoaEmail) values
 	('Frisk', 'person@somewhere'),
 	('Fool', 'aaa@at'),
 	('Bar', 'noOne@nowhere'),
-	('Someone else', 'hii@hello');
+	('Someone Else', 'hii@hello'),
+	('Some No Task', 'noreply@task.info');
 
 insert into tbRef_TarefaPessoa(idTarefa,idPessoa) values
 	(0,0),
@@ -99,7 +100,7 @@ select
 	p.pessoaEmail as [Email]
 	from	 	tbPessoa			as p
 	left join	tbRef_TarefaPessoa	as r
-	on (p.idPessoa <> r.idPessoa)
+	on (p.idPessoa = r.idPessoa) where (r.idPessoa is null)
 	order by p.idPessoa;
 
 --2. metodologias mais usadas
