@@ -95,6 +95,8 @@ insert into tbRef_TarefaPessoa(idTarefa,idPessoa) values
 
 
 --1. pessoas que não participam de nenhuma tarefa
+create proc getPeopleWithNoTasks
+as begin
 select
 	p.pessoaNome  as [Nome],
 	p.pessoaEmail as [Email]
@@ -102,16 +104,22 @@ select
 	left join	tbRef_TarefaPessoa	as r
 	on (p.idPessoa = r.idPessoa) where (r.idPessoa is null)
 	order by p.idPessoa;
+end;
 
 --2. metodologias mais usadas
+create proc getMostUsedMethods
+as begin
 select COUNT(m.metodoNome) as [contagem], m.metodoNome as [nome]
 	from tbTarefa as t
 	right join tbMetodologias as m
 	on (t.idMetodo = m.idMetodo)
 	group by m.metodoNome
 	order by COUNT(m.metodoNome) desc;
+end;
 
 --3. pessoas com tarefas atrasadas
+create proc getLateTasks
+as begin
 select
 	p.pessoaNome as [nome], t.tarefaTitulo as [tarefa], t.tarefaPrazo as [prazo], t.tarefaPrazoTermino as [término]
 	from tbPessoa as p
@@ -121,3 +129,4 @@ select
 	on (r.idTarefa = t.idTarefa)
 	where ((t.tarefaPrazo > GETDATE()) or (t.tarefaPrazoTermino > t.tarefaPrazo))
 	or ((t.tarefaPrazo > GETDATE()) AND (t.tarefaPrazoTermino = null));
+end;
