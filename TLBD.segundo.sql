@@ -44,12 +44,12 @@ create table tb_sell_checkouts (
 )
 
 create table tb_sell_checkouts_items (
-	id_checkout int identity(0,1) unique,
+	id_checkout int,
 	id_item int not null,
 	checkout_item_qtd int default 0,
 	checkout_item_value float default 0,
 	
-	primary key (id_checkout),
+	foreign key (id_checkout) references tb_sell_checkouts(id_checkout),
 	foreign key (id_item) references tb_listitems(id_item)
 )
 
@@ -75,13 +75,13 @@ insert into tb_sell_checkouts_items(id_checkout,id_item,checkout_item_qtd,checko
 	(0,1,5,564);
 
 insert into tb_sell_checkouts(id_client,checkout_date,checkout_value_paid,/**/checkout_value_total) values
-	(1,0,12,12),
-	(3,31,9999,9999);
+	(1,GETDATE(),12,12),
+	(3,GETDATE(),9999,9999);
 
 
 update tb_listitems	--update data at "tb_listitems"
 	set		item_desc = 'mouse'	--sets the column of the registry to "'mouse'"
-	where	item_desc = 'eee';	--it affects any registry in the table with these conditions - if the current description is "'eee'"
+	where	item_desc = 'wireless mouse';	--it affects any registry in the table with these conditions - if the current description is "'eee'"
 	
 delete from tb_clients --deletes any registries from "tb_clients"
 	where	client_email = NULL;	--which has no email (or no value in client_email)

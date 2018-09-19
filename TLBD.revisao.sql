@@ -96,7 +96,8 @@ insert into tbRef_TarefaPessoa(idTarefa,idPessoa) values
 
 --1. pessoas que não participam de nenhuma tarefa
 if OBJECT_ID('dbo.getPeopleWithNoTasks') is not null
-	drop procedure getPeopleWithNoTasks;
+	drop procedure getPeopleWithNoTasks
+
 go
  create proc getPeopleWithNoTasks
 as begin
@@ -112,6 +113,7 @@ end;
 --2. metodologias mais usadas
 if OBJECT_ID('dbo.getMostUsedMethods') is not null
 	drop procedure getMostUsedMethods;
+
 go
  create proc getMostUsedMethods
 as begin
@@ -126,6 +128,7 @@ end;
 --3. pessoas com tarefas atrasadas
 if OBJECT_ID('dbo.getLateTasks') is not null
 	drop procedure getLateTasks;
+
 go
  create proc getLateTasks
 as begin
