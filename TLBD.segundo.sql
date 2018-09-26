@@ -116,3 +116,19 @@ select C.client_name, C.client_address, S.checkout_date, S.checkout_value_paid -
 	inner join	tb_sell_checkouts	as S	--inner join means joining the common between both tables
 			on C.id_client = S.id_checkout		--that meets these conditions
 
+if OBJECT_ID('dbo.search') is not null
+	drop proc search;
+go
+ create procedure search @query as varchar as
+begin
+	select * from tb_listitems where item_desc like ('%' +@query +'%');
+end
+
+if OBJECT_ID('dbo.total') is not null
+	drop trigger total;
+go
+ create trigger total on tb_sell_checkouts_items for insert
+as
+begin
+	select 'a'; --todo: complete
+end;
