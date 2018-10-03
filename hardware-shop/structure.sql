@@ -29,8 +29,8 @@ create table tb_listitems (
 create table tb_checkouts (
 	id_checkout int primary key identity(0,1),
 	id_client int not null,
-	checkout_date date not null default getdate(),
-	checkout_value_total float not null default 0,
+	checkout_date date not null default getdate() check(checkout_date <= getdate()),
+	checkout_value_total float not null default 10,
 	checkout_value_discount float not null default 0,
 	checkout_value_paid float not null default 0,
 	
@@ -50,8 +50,8 @@ create table tb_checkouts_items (
 create table tb_promotions (
 	id_promotion int primary key identity(0,1),
 	promotion_name varchar(32) unique not null,
-	promotion_start datetime not null default GETDATE(),
-	promotion_end datetime not null default DATEADD(day, 3, GETDATE()),
+	promotion_start date not null default GETDATE(),
+	promotion_end date not null check(promotion_end <= convert(date, getdate())),
 )
 
 create table tb_promotions_items (
@@ -84,4 +84,5 @@ insert into tb_checkouts(id_client,checkout_date,checkout_value_paid,/**/checkou
 	(1,GETDATE(),12,12),
 	(3,GETDATE(),9999,9999);
 
-use master;
+go
+ use master;
