@@ -1,10 +1,10 @@
 use master						--disuse master
-go --wait for previous command
+go --end batch, wait for commands to end
  drop database		dtbHardware		--deletes the database
-go --wait for previous command
  create database	dtbHardware		--recreate the database
-go --wait for previous command
+go --end batch, wait for commands to end
  use dtbHardware				--use the database
+go --end batch, wait for commands to end
 
 
 /* table creation */
@@ -20,14 +20,14 @@ create table tb_clients ( --<CREATE/ALTER> table <name ( ... )
 )
 
 create table tb_listitems (
-	id_item int	primary key identity(0,1),
+	id_item int not null primary key identity(0,1),
 	item_desc varchar(128) default null,
 	item_price decimal(6,2) not null default 5.00 check(item_price >= 5.00),
 	item_unitqtd int not null default 0,
 )
 
 create table tb_checkouts (
-	id_checkout int primary key identity(0,1),
+	id_checkout int not null primary key identity(0,1),
 	id_client int not null,
 	checkout_date date not null default getdate() check(checkout_date <= getdate()),
 	checkout_value_total float not null default 10,
@@ -38,7 +38,7 @@ create table tb_checkouts (
 )
 
 create table tb_checkouts_items (
-	id_checkout int,
+	id_checkout int not null,
 	id_item int not null,
 	checkout_item_qtd int default 0,
 	checkout_item_value float default 0,
@@ -58,6 +58,7 @@ create table tb_promotions_items (
 	id_promotion_item int primary key identity(0,1),
 	
 )
+go --end batch, wait for commands to end
 
 /* insert values into a table :3 */
 insert into tb_clients(client_name, client_address, client_email)	--at client_name in tb_clients,
@@ -70,19 +71,27 @@ insert into tb_listitems(item_desc,item_price,item_unitqtd) values	--at table(co
 	('gpu',		499.99,	30000),								--insert rows with these values(c0-val,c1-val,[...])
 	('cpu',		299.70,	290),
 	('mouse',	10.90,	2990);
-	
+
 insert into tb_clients(client_name,client_address,client_phone,client_email) values
 	('informed dummy','somewhere else','727272','address0@host.com'),
 	('asdfa','some place','232323','address1@host.com'),
 	('haah','a house','898989','address2@host.com');
-	
-insert into tb_checkouts_items(id_checkout,id_item,checkout_item_qtd,checkout_item_value) values
-	(0,0,3,1301),
-	(0,1,5,564);
 
-insert into tb_checkouts(id_client,checkout_date,checkout_value_paid,/**/checkout_value_total) values
-	(1,GETDATE(),12,12),
-	(3,GETDATE(),9999,9999);
+begin transaction
+	begin try
+		insert into tb_checkouts_items(id_checkout,id_item,checkout_item_qtd,checkout_item_value) values
+			(0,0,3,1301),
+			(0,1,5,564);
 
-go
+		insert into tb_checkouts(id_client,checkout_date,checkout_value_paid,/**/checkout_value_total) values
+			(1,GETDATE(),12,12),
+			(3,GETDATE(),9999,9999);
+		
+		commit transaction --commit all changes
+	end try
+	begin catch --if an error ocurred in the try block,
+		rollback transaction --rollback changes.
+	end catch
+
+go --end batch, wait for commands to end
  use master;
